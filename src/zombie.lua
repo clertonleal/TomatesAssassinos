@@ -111,12 +111,13 @@ local create = function()
 	zombie:setReferencePoint(display.CenterReferencePoint)
 	zombie.x = 500
 
-	local randomPos = math.random(1, 4)
+	local randomPos = math.random(1, 5)
 
-	if (randomPos == 1) then zombie.y = 110
-	elseif (randomPos == 2) then zombie.y = 170
-	elseif (randomPos == 3) then zombie.y = 230
-	elseif (randomPos == 4) then zombie.y = 290 end
+    if (randomPos == 1) then zombie.y = 40
+	elseif (randomPos == 2) then zombie.y = 100
+	elseif (randomPos == 3) then zombie.y = 160
+	elseif (randomPos == 4) then zombie.y = 220
+	elseif (randomPos == 5) then zombie.y = 280 end
 
 	zombie.initY = zombie.y
 	zombie.eatTime = 1000

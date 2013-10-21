@@ -28,9 +28,6 @@ _G.H = display.contentHeight
 -- Memory monitor on Console
 _G.DEBUGMONITOR = false
 
--- Global to access plantSelector from selectorTile
-_G.PLANTSELECTOR = nil
-
 -- Global to stop creating zombies at completion or failing
 _G.STOPGAME = false
 

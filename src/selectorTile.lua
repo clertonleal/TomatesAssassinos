@@ -25,9 +25,6 @@ local touchTile = function(event)
 		if (event.target.selected) then
 			event.target.selected = false
 		elseif (event.target.enabled) then
-			for index = 1, #_G.PLANTSELECTOR do
-				_G.PLANTSELECTOR[index].selected = false
-			end		
 			event.target.selected = true
 		end
 	end

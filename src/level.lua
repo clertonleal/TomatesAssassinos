@@ -61,11 +61,15 @@ local createTiles = function()
 end
 
 local createHuman = function()
-	T.human = display.newImageRect("image/human.png", 30, 60, false)
-	T.human:setReferencePoint(display.CenterReferencePoint)
-	T.human.x = 30
-	T.human.y = 210
-	T.levelGroup:insert(T.human)
+    local y = -20;
+    for x = 1, 5 do
+        T.human = display.newImageRect("image/human.png", 30, 60, false)
+        T.human:setReferencePoint(display.CenterReferencePoint)
+        T.human.x = 30
+        y = y + 60
+        T.human.y = y
+        T.levelGroup:insert(T.human)
+    end
 end
 
 local createZombie = function()
