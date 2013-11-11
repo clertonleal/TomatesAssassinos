@@ -1,5 +1,11 @@
 module(..., package.seeall)
 
+clean = function()
+
+    Runtime._functionListeners = nil
+
+end
+
 function new() 
 	
 	-------------------------
@@ -17,13 +23,13 @@ function new()
 	local gameTime = 0
 	
 	-- Time for the first zombie
-	local startTime = 10000
+	local startTime = 100
 	
 	-- Time to stop creating zombies
 	local endTime = 180000
 	
 	-- Time to create another zombie
-	local zombieTime = 10000
+	_G.zombieTime = 500
 
 
 	-------------------------
@@ -43,9 +49,6 @@ function new()
 	
 	local destroyEverything = function()
 		Runtime:removeEventListener("enterFrame", refreshGame)
-		cancelAllTimers()
-		cancelAllTransitions()
-
 		levelMgr.destroy()
 		level = nil
 		levelMgr.destroyMgr()
@@ -60,7 +63,7 @@ function new()
 	-------------------------
 	
 	local refreshGame = function()
-		gameTime = system.getTimer()
+        gameTime = system.getTimer()
 		levelMgr.refresh(gameTime)		
 	end
 	

@@ -16,6 +16,12 @@ display.setStatusBar(display.HiddenStatusBar)
 system.setIdleTimer(false)
 io.output():setvbuf("no")
 
+-- Define music variables
+local gameMusic = audio.loadStream( "sounds/sound.mp3" )
+
+-- Play the music
+local gameMusicChannel = audio.play( gameMusic, { loops = -1 } )
+
 
 -------------------------
 -- Global Variables
@@ -109,7 +115,7 @@ local mainGroup = display.newGroup()
 local main = function()
 	math.randomseed(os.time())
 	mainGroup:insert(director.directorView)
-	director:changeScene("game")
+	director:changeScene("loadGame")
 	return true
 end
 

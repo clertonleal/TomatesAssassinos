@@ -9,9 +9,10 @@ local T = {}
 -- Local Variables
 -------------------------
 
-local zombieSheetWalk = sprite.newSpriteSheetRetina("image/zombie.png", 30, 30)
-local zombieSheetEat = sprite.newSpriteSheetRetina("image/zombie.png", 30, 30)
-local zombieSheetDie = sprite.newSpriteSheetRetina("image/zombie.png", 30, 30)
+
+local zombieSheetWalk = sprite.newSpriteSheetRetina("image/zombie.png", 60, 60)
+local zombieSheetEat = sprite.newSpriteSheetRetina("image/zombie.png", 60, 60)
+local zombieSheetDie = sprite.newSpriteSheetRetina("image/zombie.png", 60, 60)
 
 local zombieSet = sprite.newSpriteMultiSet (
 {
@@ -31,20 +32,15 @@ sprite.add(zombieSet, "zombieDie", 1, 1, 600, 0)
 -- Aux Functions
 -------------------------
 
-local onCollision = function(self, event)
-	if (event.phase == "began") then
---		if (event.other.definition == "shot") then
---			self.hits = self.hits - 1
---			event.other.active = false
---			display.remove(event.other)
---			event.other = nil
---			return true
---		end
-		
---		if (event.other.definition == "sunFlower" or event.other.definition == "shootingPlant") then
---			self.eating = true
---			self.target = event.other
---		end
+local onTouch = function(self, event)
+    print(event)
+    print(self)
+	if (event.phase == "ended") then
+        _G.score = _G.score + 1
+        _G.scoreText.text = "Score: " .. _G.score
+        self.hits = self.hits - 1
+        _G.zombieTime = _G.zombieTime + 20
+        return true
 	end
 end
 
@@ -78,14 +74,14 @@ local refresh = function(zombie, gameTime)
 	if (zombie.x <= 60) then
 		if (_G.STOPGAME == false) then
 			_G.STOPGAME = true
-			native.showAlert("PvZ", "YOU LOST! ZOMBIES ATE YOUR BRAIN!")
+			native.showAlert("Tomates Assasinos", "Os tomates dominaram o mundo!")
 		end
 	else
 		zombie.x = zombie.body.x
 		zombie.y = zombie.initY
 		zombie.body.y = zombie.initY
 	end
-	
+
 	if (_G.STOPGAME) then
 		zombie.body:setLinearVelocity(0, 0)
 	end
@@ -99,7 +95,6 @@ local refresh = function(zombie, gameTime)
 end
 
 T.refresh = refresh
-
 
 -------------------------
 -- Mandatory Constructor
@@ -139,14 +134,14 @@ local create = function()
 	zombie.body.isVisible = false
 	zombie.bodyType = "dynamic"
 	zombie.body.isFixedRotation = true
-	zombie.body.hits = 5
+	zombie.body.hits = 1
 	zombie.body:setLinearVelocity(-25, 0)
 	zombie.body.isSensor = true
 	zombie.body.eating = false
 	zombie.body.target = nil
 	
-	zombie.body.collision = onCollision
-	zombie.body:addEventListener("collision", zombie.body)
+	zombie.body.touch = onTouch
+	zombie:addEventListener("touch", zombie.body)
 
 	return zombie
 end
@@ -176,7 +171,6 @@ local destroy = function(zombie)
 	display.remove(zombie.body)
 	zombie.body = nil
 	display.remove(zombie)
-	zombie = nil
 end
 
 T.destroy = destroy

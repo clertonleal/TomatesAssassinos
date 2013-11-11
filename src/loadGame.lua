@@ -29,7 +29,7 @@ function new()
 		director:changeScene("game")		
 	end
 	
-	timerStash.newTimer = timer.performWithDelay(10000, gotoGame)
+	timerStash.newTimer = timer.performWithDelay(300, gotoGame)
 	
 	
 	-------------------------

@@ -33,6 +33,12 @@ local zombieMgr = require "zombie"
 -------------------------
 
 local createBackground = function()
+    _G.scoreText = display.newText("", 0,0, nil, 14)
+    _G.scoreText:setReferencePoint(display.CenterLeftReferencePoint)
+    _G.scoreText.x = 250
+    _G.score = 0
+    _G.scoreText.text = "Score: " .. _G.score
+
 	T.background = display.newImageRect("image/background.png", _G.W, _G.H, false)
 	T.background:setReferencePoint(display.CenterReferencePoint)
 	T.background.x = _G.W / 2
@@ -63,7 +69,7 @@ end
 local createHuman = function()
     local y = -20;
     for x = 1, 5 do
-        T.human = display.newImageRect("image/human.png", 30, 60, false)
+        T.human = display.newImageRect("image/human.png", 70, 70, false)
         T.human:setReferencePoint(display.CenterReferencePoint)
         T.human.x = 30
         y = y + 60
@@ -140,7 +146,7 @@ local refresh = function(gameTime)
 			native.showAlert("PvZ", "YOU WON! THERE ARE NO MORE ZOMBIES LEFT!")
 		end
 	end
-	
+
 end
 
 T.refresh = refresh
