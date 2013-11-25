@@ -113,44 +113,42 @@ local destroyTiles = function()
 	end
 end
 
+local onComplete = function(event)
+    if "clicked" == event.action  then
+        local i = event.index
+        if 1 == i then
+            director:changeScene("game")
+        end
+    end
+end
+
 -------------------------
 -- Callable Functions
 -------------------------
 
 local refresh = function(gameTime)
-	local index = 0
-	local zombiesLeft = 0
-	
-	for index = 1, #T.zombies do
-		if (T.zombies[index] ~= nil) then
-			zombieMgr.refresh(T.zombies[index], gameTime)
-		end
-	end	
 
-	if (gameTime <= T.endTime and T.startTime < gameTime and _G.STOPGAME == false) then
-		if (T.lastZombieTime < gameTime - T.zombieTime) then
-			T.lastZombieTime = gameTime
-			createZombie()
-		end
-	end
-	
-	if (gameTime >= T.endTime) then
-		for index = 1, #T.zombies do
-			if (T.zombies[index].body ~= nil) then
-				zombiesLeft = zombiesLeft + 1
-			end
-		end
-		
-		if (zombiesLeft == 0 and _G.STOPGAME == false) then
-			_G.STOPGAME = true
-			native.showAlert("PvZ", "YOU WON! THERE ARE NO MORE ZOMBIES LEFT!")
-		end
-	end
+    for index = 1, #T.zombies do
+        if (T.zombies[index] ~= nil) then
+            zombieMgr.refresh(T.zombies[index], gameTime)
+        end
+    end
+
+    if (gameTime <= T.endTime and T.startTime < gameTime and _G.STOPGAME == false) then
+        if (T.lastZombieTime < gameTime - T.zombieTime) then
+            T.lastZombieTime = gameTime
+            createZombie()
+        end
+    end
+
+    if (_G.STOPGAME == true) then
+        _G.STOPGAME = false
+        native.showAlert("Tomates Assassinos", "Você perdeu. \nRecomece o jogo.", {"Ok"}, onComplete)
+    end
 
 end
 
 T.refresh = refresh
-
 
 -------------------------
 -- Mandatory Constructor

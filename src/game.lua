@@ -31,6 +31,8 @@ function new()
 	-- Time to create another zombie
 	_G.zombieTime = 500
 
+    _G.STOPGAME = false
+
 
 	-------------------------
 	-- Scene Setup

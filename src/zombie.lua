@@ -3,6 +3,7 @@
 -------------------------
 
 local T = {}
+director = require "director"
 
 
 -------------------------
@@ -50,7 +51,7 @@ end
 -------------------------
 
 local refresh = function(zombie, gameTime)
-	if (zombie == nil or zombie.body == nil) then
+	if (zombie == nil or zombie.body == nil or zombie.x == nil) then
 		return
 	end
 	
@@ -74,7 +75,6 @@ local refresh = function(zombie, gameTime)
 	if (zombie.x <= 60) then
 		if (_G.STOPGAME == false) then
 			_G.STOPGAME = true
-			native.showAlert("Tomates Assasinos", "Os tomates dominaram o mundo!")
 		end
 	else
 		zombie.x = zombie.body.x
@@ -170,7 +170,7 @@ local destroy = function(zombie)
 	if (zombie == nil) then return end
 	display.remove(zombie.body)
 	zombie.body = nil
-	display.remove(zombie)
+display.remove(zombie)
 end
 
 T.destroy = destroy
