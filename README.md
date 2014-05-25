@@ -1,4 +1,4 @@
-TomatesAssassinos
+Tomates Assassinos
 =================
 
-Jogo conceito para a cadera de estágio 1
+Jogo conceito para estudar Lua e desenvolvimento de jogos usando Corona SDK.
